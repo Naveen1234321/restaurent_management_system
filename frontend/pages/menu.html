@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Gourmet Haven</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Gourmet Haven</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="menu.html" class="nav-link active">Menu</a></li>
+                <li><a href="reservation.html" class="nav-link">Reservations</a></li>
+                <li><a href="cart.html" class="nav-link">Cart</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Header -->
+    <section class="menu-header">
+        <div class="container">
+            <h1>Our Menu</h1>
+            <p>Discover our delicious selection of dishes prepared with the finest ingredients</p>
+        </div>
+    </section>
+
+    <!-- Menu Filters -->
+    <section class="menu-filters">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="appetizers">Appetizers</button>
+                <button class="filter-btn" data-category="main-course">Main Course</button>
+                <button class="filter-btn" data-category="desserts">Desserts</button>
+                <button class="filter-btn" data-category="drinks">Drinks</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Items -->
+    <section class="menu-items">
+        <div class="container">
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gourmet Haven</h3>
+                    <p>Experience the finest dining with our exceptional cuisine and service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="reservation.html">Reservations</a></li>
+                        <li><a href="cart.html">Order Online</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@gourmethaven.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Gourmet Street, Foodie City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gourmet Haven. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Menu items with proper images
+        const menuItems = [
+            {
+                id: 1,
+                name: "Bruschetta",
+                price: 299,
+                category: "appetizers",
+                image: "https://images.unsplash.com/photo-1572445271230-a78b5944a659?w=400&h=300&fit=crop&crop=center&t=" + new Date().getTime(),
+                description: "Toasted bread topped with tomatoes, garlic, and fresh basil"
+            },
+            {
+                id: 2,
+                name: "Caesar Salad",
+                price: 399,
+                category: "appetizers",
+                image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop",
+                description: "Fresh romaine lettuce with Caesar dressing, croutons, and parmesan"
+            },
+            {
+                id: 3,
+                name: "Garlic Bread",
+                price: 199,
+                category: "appetizers",
+                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+                description: "Crusty bread with garlic butter and herbs"
+            },
+            {
+                id: 4,
+                name: "Grilled Salmon",
+                price: 899,
+                category: "main-course",
+                image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop",
+                description: "Fresh Atlantic salmon with lemon butter sauce and seasonal vegetables"
+            },
+            {
+                id: 5,
+                name: "Beef Tenderloin",
+                price: 1299,
+                category: "main-course",
+                image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop",
+                description: "Premium beef tenderloin with red wine reduction and mashed potatoes"
+            },
+            {
+                id: 6,
+                name: "Chicken Masala",
+                price: 699,
+                category: "main-course",
+                image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop",
+                description: "Pan-seared chicken in masala sauce with mushrooms"
+            },
+            {
+                id: 7,
+                name: "Pasta Carbonara",
+                price: 599,
+                category: "main-course",
+                image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+                description: "Classic Italian pasta with eggs, cheese, pancetta, and black pepper"
+            },
+            {
+                id: 8,
+                name: "Vegetable Risotto",
+                price: 499,
+                category: "main-course",
+                image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=300&fit=crop",
+                description: "Creamy risotto with seasonal vegetables and parmesan cheese"
+            },
+            {
+                id: 9,
+                name: "Tiramisu",
+                price: 349,
+                category: "desserts",
+                image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=300&fit=crop",
+                description: "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone cream"
+            },
+            {
+                id: 10,
+                name: "Chocolate Lava Cake",
+                price: 399,
+                category: "desserts",
+                image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop",
+                description: "Warm chocolate cake with molten center, served with vanilla ice cream"
+            },
+            {
+                id: 11,
+                name: "New York Cheesecake",
+                price: 299,
+                category: "desserts",
+                image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400&h=300&fit=crop",
+                description: "Creamy cheesecake with berry compote"
+            },
+            {
+                id: 12,
+                name: "Fresh Fruit Tart",
+                price: 349,
+                category: "desserts",
+                image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop",
+                description: "Buttery pastry shell filled with custard and fresh seasonal fruits"
+            },
+            {
+                id: 13,
+                name: "Espresso",
+                price: 149,
+                category: "drinks",
+                image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&h=300&fit=crop",
+                description: "Rich Italian espresso served in a demitasse cup"
+            },
+            {
+                id: 14,
+                name: "Cappuccino",
+                price: 199,
+                category: "drinks",
+                image: "https://images.unsplash.com/photo-1572442388796-11668a64e141?w=400&h=300&fit=crop",
+                description: "Espresso with steamed milk and milk foam"
+            },
+            {
+                id: 15,
+                name: "Fresh Lemonade",
+                price: 179,
+                category: "drinks",
+                image: "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&h=300&fit=crop",
+                description: "Homemade lemonade with fresh lemons and mint"
+            },
+            {
+                id: 16,
+                name: "Red Wine",
+                price: 349,
+                category: "drinks",
+                image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&h=300&fit=crop",
+                description: "Premium red wine selection from our cellar"
+            }
+        ];
+
+        // Load menu items
+        function loadMenuItems(category = 'all') {
+            const menuGrid = document.getElementById('menuGrid');
+            const filteredItems = category === 'all' ? menuItems : menuItems.filter(item => item.category === category);
+            
+            menuGrid.innerHTML = filteredItems.map(item => `
+                <div class="menu-item" data-category="${item.category}">
+                    <div class="menu-item-image">
+                        <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop'">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>${item.name}</h3>
+                        <p class="menu-item-description">${item.description}</p>
+                        <div class="menu-item-footer">
+                            <span class="menu-item-price">₹${item.price.toFixed(0)}</span>
+                            <button class="btn btn-primary" onclick="addToCart(${item.id})">
+                                <i class="fas fa-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMenuItems();
+            
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    loadMenuItems(category);
+                });
+            });
+        });
+
+        // Add to cart function
+        function addToCart(itemId) {
+            const item = menuItems.find(item => item.id === itemId);
+            if (item) {
+                // Get current cart from localStorage
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                // Check if item already exists in cart
+                const existingItem = cart.find(cartItem => cartItem.id === itemId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: item.id,
+                        name: item.name,
+                        price: item.price,
+                        image: item.image,
+                        quantity: 1
+                    });
+                }
+                
+                // Save updated cart
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Show success message
+                showNotification('Item added to cart!', 'success');
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#4CAF50' : '#2196F3'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 

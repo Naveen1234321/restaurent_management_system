@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gourmet Haven</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Gourmet Haven</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="menu.html" class="nav-link">Menu</a></li>
+                <li><a href="reservation.html" class="nav-link">Reservations</a></li>
+                <li><a href="cart.html" class="nav-link">Cart</a></li>
+                <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-container">
+        <div class="container">
+            <!-- Admin Dashboard -->
+            <div id="adminDashboard" class="dashboard-content hidden">
+                <div class="dashboard-header">
+                    <h1>Admin Dashboard</h1>
+                    <p>Manage your restaurant operations</p>
+                </div>
+                
+                <!-- Admin Stats -->
+                <div class="dashboard-stats">
+                    <!-- Stats will be loaded dynamically -->
+                </div>
+                
+                <!-- Admin Sections -->
+                <div class="dashboard-sections">
+                    <!-- Pending Orders -->
+                    <div class="dashboard-section">
+                        <h2><i class="fas fa-clock"></i> Pending Orders</h2>
+                        <div class="pending-orders">
+                            <!-- Orders will be loaded dynamically -->
+                        </div>
+                    </div>
+                    
+                    <!-- Menu Management -->
+                    <div class="dashboard-section">
+                        <h2><i class="fas fa-utensils"></i> Menu Management</h2>
+                        <div class="menu-management">
+                            <button class="btn btn-primary" onclick="showAddItemForm()">
+                                <i class="fas fa-plus"></i> Add New Item
+                            </button>
+                            <div class="menu-items-list">
+                                <!-- Menu items will be loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Management -->
+                    <div class="dashboard-section">
+                        <h2><i class="fas fa-tags"></i> Price Management</h2>
+                        <div class="price-management">
+                            <div class="price-update-form">
+                                <select id="itemSelect" class="form-control">
+                                    <option value="">Select Item</option>
+                                </select>
+                                <input type="number" id="newPrice" placeholder="New Price" step="0.01" class="form-control">
+                                <button class="btn btn-primary" onclick="updatePrice()">Update Price</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Employee Dashboard -->
+            <div id="employeeDashboard" class="dashboard-content hidden">
+                <div class="dashboard-header">
+                    <h1>Employee Dashboard</h1>
+                    <p>Manage your daily tasks</p>
+                </div>
+                
+                <!-- Employee Stats -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3 id="attendanceStatus">Present</h3>
+                        <p>Today's Status</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="tableCount">0</h3>
+                        <p>Active Tables</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="feedbackCount">0</h3>
+                        <p>Pending Feedback</p>
+                    </div>
+                </div>
+                
+                <!-- Employee Sections -->
+                <div class="dashboard-sections">
+                    <!-- Attendance -->
+                    <div class="dashboard-section">
+                        <h2><i class="fas fa-user-clock"></i> Attendance</h2>
+                        <div class="attendance-management">
+                            <button class="btn btn-primary" id="markAttendance" onclick="markAttendance()">
+                                <i class="fas fa-check"></i> Mark Present
+                            </button>
+                            <div class="attendance-history">
+                                <h4>Recent Attendance</h4>
+                                <div class="attendance-list">
+                                    <!-- Attendance history will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Table Management -->
+                    <div class="dashboard-section">
+                        <h2><i class="fas fa-chair"></i> Table Management</h2>
+                        <div class="table-management">
+                            <div class="table-grid">
+                                <!-- Tables will be loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Customer Feedback -->
+                    <div class="dashboard-section">
+                        <h2><i class="fas fa-comments"></i> Customer Feedback</h2>
+                        <div class="feedback-management">
+                            <div class="feedback-form">
+                                <h4>Send Feedback to Admin</h4>
+                                <textarea id="feedbackMessage" placeholder="Enter your feedback or report..." rows="4"></textarea>
+                                <button class="btn btn-primary" onclick="sendFeedback()">
+                                    <i class="fas fa-paper-plane"></i> Send Feedback
+                                </button>
+                            </div>
+                            <div class="feedback-list">
+                                <h4>Recent Feedback</h4>
+                                <div class="feedback-items">
+                                    <!-- Feedback items will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gourmet Haven</h3>
+                    <p>Experience the finest dining with our exceptional cuisine and service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="reservation.html">Reservations</a></li>
+                        <li><a href="cart.html">Order Online</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@gourmethaven.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Gourmet Street, Foodie City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gourmet Haven. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Dashboard initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const role = urlParams.get('role');
+            
+            if (role === 'admin') {
+                document.getElementById('adminDashboard').classList.remove('hidden');
+                setupAdminDashboard();
+            } else if (role === 'employee') {
+                document.getElementById('employeeDashboard').classList.remove('hidden');
+                setupEmployeeDashboard();
+            } else {
+                // Redirect to login if no role specified
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Admin Dashboard Functions
+        function setupAdminDashboard() {
+            loadAdminStats();
+            loadPendingOrders();
+            loadMenuItems();
+        }
+
+        function loadAdminStats() {
+            const stats = {
+                totalOrders: 156,
+                pendingOrders: 12,
+                totalRevenue: 15420.50,
+                totalCustomers: 89
+            };
+
+            const statsContainer = document.querySelector('.dashboard-stats');
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <h3>${stats.totalOrders}</h3>
+                    <p>Total Orders</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${stats.pendingOrders}</h3>
+                    <p>Pending Orders</p>
+                </div>
+                <div class="stat-card">
+                    <h3>$${stats.totalRevenue.toFixed(2)}</h3>
+                    <p>Total Revenue</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${stats.totalCustomers}</h3>
+                    <p>Total Customers</p>
+                </div>
+            `;
+        }
+
+        function loadPendingOrders() {
+            const orders = [
+                {
+                    id: '001',
+                    customerName: 'John Doe',
+                    total: 45.99,
+                    items: ['Grilled Salmon', 'Caesar Salad'],
+                    time: '2:30 PM'
+                },
+                {
+                    id: '002',
+                    customerName: 'Jane Smith',
+                    total: 32.50,
+                    items: ['Beef Burger', 'Chocolate Cake'],
+                    time: '3:15 PM'
+                },
+                {
+                    id: '003',
+                    customerName: 'Mike Johnson',
+                    total: 28.75,
+                    items: ['Chicken Pasta', 'Fresh Juice'],
+                    time: '4:00 PM'
+                }
+            ];
+
+            const ordersContainer = document.querySelector('.pending-orders');
+            ordersContainer.innerHTML = '';
+
+            orders.forEach(order => {
+                const orderElement = document.createElement('div');
+                orderElement.className = 'order-item';
+                
+                orderElement.innerHTML = `
+                    <div>
+                        <h4>Order #${order.id}</h4>
+                        <p><strong>Customer:</strong> ${order.customerName}</p>
+                        <p><strong>Items:</strong> ${order.items.join(', ')}</p>
+                        <p><strong>Total:</strong> $${order.total.toFixed(2)}</p>
+                        <p><strong>Time:</strong> ${order.time}</p>
+                    </div>
+                    <div class="order-actions">
+                        <button class="action-btn approve-btn" onclick="approveOrder('${order.id}')">
+                            <i class="fas fa-check"></i> Approve
+                        </button>
+                        <button class="action-btn reject-btn" onclick="rejectOrder('${order.id}')">
+                            <i class="fas fa-times"></i> Reject
+                        </button>
+                    </div>
+                `;
+                
+                ordersContainer.appendChild(orderElement);
+            });
+        }
+
+        function loadMenuItems() {
+            const menuItems = [
+                { id: '1', name: 'Grilled Salmon', price: 24.99 },
+                { id: '2', name: 'Beef Burger', price: 16.99 },
+                { id: '3', name: 'Caesar Salad', price: 12.99 },
+                { id: '4', name: 'Chocolate Cake', price: 8.99 }
+            ];
+
+            const itemSelect = document.getElementById('itemSelect');
+            itemSelect.innerHTML = '<option value="">Select Item</option>';
+            
+            menuItems.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = `${item.name} - $${item.price}`;
+                itemSelect.appendChild(option);
+            });
+        }
+
+        function approveOrder(orderId) {
+            showMessage(`Order #${orderId} approved successfully!`, 'success');
+            loadPendingOrders();
+        }
+
+        function rejectOrder(orderId) {
+            showMessage(`Order #${orderId} rejected!`, 'error');
+            loadPendingOrders();
+        }
+
+        function updatePrice() {
+            const itemId = document.getElementById('itemSelect').value;
+            const newPrice = document.getElementById('newPrice').value;
+            
+            if (!itemId || !newPrice) {
+                showMessage('Please select an item and enter a new price', 'error');
+                return;
+            }
+            
+            showMessage('Price updated successfully!', 'success');
+            document.getElementById('newPrice').value = '';
+        }
+
+        // Employee Dashboard Functions
+        function setupEmployeeDashboard() {
+            loadEmployeeStats();
+            loadTables();
+            loadAttendanceHistory();
+        }
+
+        function loadEmployeeStats() {
+            document.getElementById('tableCount').textContent = '8';
+            document.getElementById('feedbackCount').textContent = '3';
+        }
+
+        function markAttendance() {
+            const button = document.getElementById('markAttendance');
+            const status = document.getElementById('attendanceStatus');
+            
+            if (button.textContent.includes('Present')) {
+                button.innerHTML = '<i class="fas fa-times"></i> Mark Absent';
+                button.className = 'btn btn-secondary';
+                status.textContent = 'Absent';
+                status.style.color = '#e74c3c';
+            } else {
+                button.innerHTML = '<i class="fas fa-check"></i> Mark Present';
+                button.className = 'btn btn-primary';
+                status.textContent = 'Present';
+                status.style.color = '#27ae60';
+            }
+            
+            showMessage('Attendance updated successfully!', 'success');
+        }
+
+        function loadTables() {
+            const tableGrid = document.querySelector('.table-grid');
+            tableGrid.innerHTML = '';
+            
+            for (let i = 1; i <= 12; i++) {
+                const tableElement = document.createElement('div');
+                tableElement.className = 'table-item';
+                const isOccupied = Math.random() > 0.5;
+                
+                tableElement.innerHTML = `
+                    <h4>Table ${i}</h4>
+                    <p class="table-status ${isOccupied ? 'occupied' : 'available'}">
+                        ${isOccupied ? 'Occupied' : 'Available'}
+                    </p>
+                    <button class="btn btn-sm ${isOccupied ? 'btn-secondary' : 'btn-primary'}" 
+                            onclick="toggleTableStatus(${i})">
+                        ${isOccupied ? 'Mark Available' : 'Mark Occupied'}
+                    </button>
+                `;
+                
+                tableGrid.appendChild(tableElement);
+            }
+        }
+
+        function toggleTableStatus(tableNumber) {
+            const tableElement = document.querySelector(`.table-item:nth-child(${tableNumber})`);
+            const statusElement = tableElement.querySelector('.table-status');
+            const button = tableElement.querySelector('button');
+            
+            if (statusElement.textContent.includes('Available')) {
+                statusElement.textContent = 'Occupied';
+                statusElement.className = 'table-status occupied';
+                button.textContent = 'Mark Available';
+                button.className = 'btn btn-sm btn-secondary';
+            } else {
+                statusElement.textContent = 'Available';
+                statusElement.className = 'table-status available';
+                button.textContent = 'Mark Occupied';
+                button.className = 'btn btn-sm btn-primary';
+            }
+            
+            showMessage(`Table ${tableNumber} status updated!`, 'success');
+        }
+
+        function sendFeedback() {
+            const message = document.getElementById('feedbackMessage').value;
+            
+            if (!message.trim()) {
+                showMessage('Please enter a feedback message', 'error');
+                return;
+            }
+            
+            showMessage('Feedback sent to admin successfully!', 'success');
+            document.getElementById('feedbackMessage').value = '';
+        }
+
+        function loadAttendanceHistory() {
+            const attendanceList = document.querySelector('.attendance-list');
+            const history = [
+                { date: '2024-01-15', status: 'Present' },
+                { date: '2024-01-14', status: 'Present' },
+                { date: '2024-01-13', status: 'Absent' },
+                { date: '2024-01-12', status: 'Present' }
+            ];
+            
+            attendanceList.innerHTML = '';
+            
+            history.forEach(record => {
+                const recordElement = document.createElement('div');
+                recordElement.className = 'attendance-record';
+                recordElement.innerHTML = `
+                    <span>${record.date}</span>
+                    <span class="status ${record.status.toLowerCase()}">${record.status}</span>
+                `;
+                attendanceList.appendChild(recordElement);
+            });
+        }
+    </script>
+</body>
+</html> 

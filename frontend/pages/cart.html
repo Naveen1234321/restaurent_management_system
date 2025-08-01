@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Gourmet Haven</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Gourmet Haven</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="menu.html" class="nav-link">Menu</a></li>
+                <li><a href="reservation.html" class="nav-link">Reservations</a></li>
+                <li><a href="cart.html" class="nav-link active">Cart</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Section -->
+    <section class="cart-container">
+        <div class="container">
+            <h1 class="section-title">Your Cart</h1>
+            
+            <div class="cart-content">
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be loaded dynamically -->
+                </div>
+                
+                <div class="cart-summary" id="cart-summary">
+                    <h3>Cart Summary</h3>
+                    <div class="cart-total">₹0</div>
+                    <button class="place-order" disabled>Place Order</button>
+                    <div class="cart-actions">
+                        <a href="menu.html" class="btn btn-secondary">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gourmet Haven</h3>
+                    <p>Experience the finest dining with our exceptional cuisine and service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="reservation.html">Reservations</a></li>
+                        <li><a href="cart.html">Order Online</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@gourmethaven.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Gourmet Street, Foodie City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gourmet Haven. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Enhanced cart functionality
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            const cartSummary = document.getElementById('cart-summary');
+            
+            if (!cartItems || !cartSummary) return;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some delicious items from our menu to get started!</p>
+                        <a href="menu.html" class="btn btn-primary">Browse Menu</a>
+                    </div>
+                `;
+                cartSummary.innerHTML = `
+                    <h3>Cart Summary</h3>
+                    <div class="cart-total">₹0</div>
+                    <button class="place-order" disabled>Place Order</button>
+                `;
+                return;
+            }
+            
+            // Display cart items
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=80&h=80&fit=crop'">
+                    <div class="cart-item-details">
+                        <h3>${item.name}</h3>
+                        <div class="cart-item-price">₹${item.price}</div>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart(${item.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+            
+            // Update cart summary
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartSummary.innerHTML = `
+                <h3>Cart Summary</h3>
+                <div class="cart-total">₹${total}</div>
+                <button class="place-order" onclick="placeOrder()">Place Order</button>
+                <div class="cart-actions">
+                    <a href="menu.html" class="btn btn-secondary">Continue Shopping</a>
+                </div>
+            `;
+        }
+
+        // Update cart total
+        function updateCartTotal() {
+            const totalElement = document.querySelector('.cart-total');
+            if (!totalElement) return;
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalElement.textContent = `Total: $${total.toFixed(2)}`;
+        }
+
+        // Add to cart with enhanced functionality
+        function addToCart(itemId) {
+            // Get item details from menu data
+            const menuItems = [
+                {
+                    id: '1',
+                    name: 'Grilled Salmon',
+                    price: 24.99,
+                    image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '2',
+                    name: 'Beef Burger',
+                    price: 16.99,
+                    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58e2?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '3',
+                    name: 'Caesar Salad',
+                    price: 12.99,
+                    image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '4',
+                    name: 'Chocolate Cake',
+                    price: 8.99,
+                    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '5',
+                    name: 'Bruschetta',
+                    price: 9.99,
+                    image: 'https://images.unsplash.com/photo-1572442388796-11668a64e546?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '6',
+                    name: 'Chicken Pasta',
+                    price: 18.99,
+                    image: 'https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '7',
+                    name: 'Tiramisu',
+                    price: 10.99,
+                    image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '8',
+                    name: 'Fresh Juice',
+                    price: 5.99,
+                    image: 'https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '9',
+                    name: 'Garlic Bread',
+                    price: 6.99,
+                    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '10',
+                    name: 'Grilled Chicken',
+                    price: 22.99,
+                    image: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '11',
+                    name: 'Ice Cream Sundae',
+                    price: 7.99,
+                    image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop'
+                },
+                {
+                    id: '12',
+                    name: 'Coffee',
+                    price: 4.99,
+                    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop'
+                }
+            ];
+
+            const menuItem = menuItems.find(item => item.id === itemId);
+            if (!menuItem) return;
+
+            const existingItem = cart.find(item => item.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: itemId,
+                    name: menuItem.name,
+                    price: menuItem.price,
+                    quantity: 1,
+                    image: menuItem.image
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showMessage('Item added to cart!', 'success');
+        }
+
+        // Initialize cart display when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+        });
+    </script>
+</body>
+</html> 

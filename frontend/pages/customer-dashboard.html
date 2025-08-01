@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Gourmet Haven</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Gourmet Haven</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="menu.html" class="nav-link">Menu</a></li>
+                <li><a href="reservation.html" class="nav-link">Reservations</a></li>
+                <li><a href="cart.html" class="nav-link">Cart</a></li>
+                <li><a href="customer-dashboard.html" class="nav-link active">Dashboard</a></li>
+                <li><a href="login.html" class="nav-link">Logout</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Customer Dashboard -->
+    <section class="dashboard-container">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Welcome, <span id="customerName">Customer</span>!</h1>
+                <p>Manage your orders, reservations, and preferences</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3 id="totalOrders">0</h3>
+                    <p>Total Orders</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="pendingOrders">0</h3>
+                    <p>Pending Orders</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="totalSpent">₹0</h3>
+                    <p>Total Spent</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="reservations">0</h3>
+                    <p>Reservations</p>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="dashboard-sections">
+                <div class="dashboard-section">
+                    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                    <div class="quick-actions">
+                        <a href="menu.html" class="action-card">
+                            <i class="fas fa-utensils"></i>
+                            <h4>Order Food</h4>
+                            <p>Browse our delicious menu</p>
+                        </a>
+                        <a href="reservation.html" class="action-card">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h4>Book Table</h4>
+                            <p>Make a reservation</p>
+                        </a>
+                        <a href="cart.html" class="action-card">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h4>View Cart</h4>
+                            <p>Check your cart items</p>
+                        </a>
+                        <div class="action-card" onclick="showProfile()">
+                            <i class="fas fa-user"></i>
+                            <h4>Profile</h4>
+                            <p>Update your information</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="dashboard-section">
+                    <h2><i class="fas fa-history"></i> Recent Orders</h2>
+                    <div id="recentOrders" class="orders-list">
+                        <div class="empty-state">
+                            <i class="fas fa-shopping-bag"></i>
+                            <h4>No orders yet</h4>
+                            <p>Start by ordering from our menu!</p>
+                            <a href="menu.html" class="btn btn-primary">Browse Menu</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Reservations -->
+                <div class="dashboard-section">
+                    <h2><i class="fas fa-calendar-check"></i> Upcoming Reservations</h2>
+                    <div id="upcomingReservations" class="reservations-list">
+                        <div class="empty-state">
+                            <i class="fas fa-calendar-times"></i>
+                            <h4>No reservations</h4>
+                            <p>Book a table for your next visit!</p>
+                            <a href="reservation.html" class="btn btn-primary">Book Table</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div class="dashboard-section" id="profileSection" style="display: none;">
+                    <h2><i class="fas fa-user-edit"></i> Profile Information</h2>
+                    <form id="profileForm" class="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profileName">Full Name</label>
+                                <input type="text" id="profileName" name="name" value="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="profileEmail">Email</label>
+                                <input type="email" id="profileEmail" name="email" value="john@example.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profilePhone">Phone</label>
+                                <input type="tel" id="profilePhone" name="phone" value="+91 98765 43210">
+                            </div>
+                            <div class="form-group">
+                                <label for="profileAddress">Address</label>
+                                <input type="text" id="profileAddress" name="address" value="123 Main Street, City">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                            <button type="button" class="btn btn-secondary" onclick="hideProfile()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gourmet Haven</h3>
+                    <p>Experience the finest dining with our exceptional cuisine and service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="reservation.html">Reservations</a></li>
+                        <li><a href="cart.html">Order Online</a></li>
+                        <li><a href="customer-dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@gourmethaven.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Gourmet Street, Foodie City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gourmet Haven. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Customer dashboard functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCustomerData();
+            setupProfileForm();
+        });
+
+        // Load customer data
+        function loadCustomerData() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+            const customerName = currentUser.name || 'Customer';
+            
+            document.getElementById('customerName').textContent = customerName;
+            
+            // Load simulated data
+            loadCustomerStats();
+            loadRecentOrders();
+            loadUpcomingReservations();
+        }
+
+        // Load customer statistics
+        function loadCustomerStats() {
+            // Simulated data
+            const stats = {
+                totalOrders: 8,
+                pendingOrders: 2,
+                totalSpent: 4599,
+                reservations: 3
+            };
+
+            document.getElementById('totalOrders').textContent = stats.totalOrders;
+            document.getElementById('pendingOrders').textContent = stats.pendingOrders;
+            document.getElementById('totalSpent').textContent = `₹${stats.totalSpent}`;
+            document.getElementById('reservations').textContent = stats.reservations;
+        }
+
+        // Load recent orders
+        function loadRecentOrders() {
+            const recentOrders = [
+                {
+                    id: 'ORD001',
+                    date: '2024-01-15',
+                    items: ['Grilled Salmon', 'Caesar Salad'],
+                    total: 1299,
+                    status: 'Delivered'
+                },
+                {
+                    id: 'ORD002',
+                    date: '2024-01-10',
+                    items: ['Beef Tenderloin', 'Tiramisu'],
+                    total: 1649,
+                    status: 'Delivered'
+                },
+                {
+                    id: 'ORD003',
+                    date: '2024-01-08',
+                    items: ['Chicken Masala', 'Garlic Bread'],
+                    total: 899,
+                    status: 'Preparing'
+                }
+            ];
+
+            const ordersContainer = document.getElementById('recentOrders');
+            
+            if (recentOrders.length === 0) {
+                return; // Keep the empty state
+            }
+
+            ordersContainer.innerHTML = recentOrders.map(order => `
+                <div class="order-item">
+                    <div class="order-info">
+                        <h4>Order #${order.id}</h4>
+                        <p>${order.items.join(', ')}</p>
+                        <small>${order.date} • ₹${order.total}</small>
+                    </div>
+                    <div class="order-status ${order.status.toLowerCase()}">
+                        ${order.status}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load upcoming reservations
+        function loadUpcomingReservations() {
+            const reservations = [
+                {
+                    id: 'RES001',
+                    date: '2024-01-20',
+                    time: '19:00',
+                    partySize: 4,
+                    status: 'Confirmed'
+                },
+                {
+                    id: 'RES002',
+                    date: '2024-01-25',
+                    time: '20:30',
+                    partySize: 2,
+                    status: 'Confirmed'
+                }
+            ];
+
+            const reservationsContainer = document.getElementById('upcomingReservations');
+            
+            if (reservations.length === 0) {
+                return; // Keep the empty state
+            }
+
+            reservationsContainer.innerHTML = reservations.map(reservation => `
+                <div class="reservation-item">
+                    <div class="reservation-info">
+                        <h4>Reservation #${reservation.id}</h4>
+                        <p>${reservation.date} at ${reservation.time}</p>
+                        <small>Party of ${reservation.partySize}</small>
+                    </div>
+                    <div class="reservation-status ${reservation.status.toLowerCase()}">
+                        ${reservation.status}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Profile management
+        function showProfile() {
+            document.getElementById('profileSection').style.display = 'block';
+        }
+
+        function hideProfile() {
+            document.getElementById('profileSection').style.display = 'none';
+        }
+
+        function setupProfileForm() {
+            const profileForm = document.getElementById('profileForm');
+            profileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate profile update
+                showNotification('Profile updated successfully!', 'success');
+                hideProfile();
+            });
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#4CAF50' : '#2196F3'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 
